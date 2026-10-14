@@ -11,6 +11,8 @@ import { forecastQuery } from '@/lib/queries'
 import { getWeather } from '@/lib/weather/codes'
 import { formatTemp } from '@/lib/weather/format'
 import { getSkyGradient } from '@/lib/weather/theme'
+import { DailyForecast } from '../dailyForecast'
+import { WeatherDetails } from '../weatherDetails'
 
 type SearchParams = {
   lat?: string
@@ -74,6 +76,11 @@ export default async function CityPage({ searchParams }: Props) {
           name={sp.name ?? 'Город'}
           place={[sp.region, sp.country].filter(Boolean).join(', ')}
         />
+        <div className="space-y-3">
+          {/* на дне 7 здесь появится почасовой прогноз */}
+          <DailyForecast lat={coords.lat} lon={coords.lon} />
+          <WeatherDetails lat={coords.lat} lon={coords.lon} />
+        </div>
       </HydrationBoundary>
     </Screen>
   )
