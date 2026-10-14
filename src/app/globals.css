@@ -123,8 +123,10 @@
   }
   body {
     @apply bg-background text-foreground;
+    background: #0f172a; /* запасной цвет за градиентом, виден при перетягивании на iOS */
   }
   html {
     @apply font-sans;
+    color-scheme: dark; /* нативные элементы (скролл, выделение) тоже тёмные */
   }
 }
