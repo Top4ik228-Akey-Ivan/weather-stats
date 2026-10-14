@@ -14,6 +14,7 @@ import { getSkyGradient } from '@/lib/weather/theme'
 import { DailyForecast } from '../dailyForecast'
 import { WeatherDetails } from '../weatherDetails'
 import { HourlyForecast } from '../hourlyForecast'
+import { FavoriteButton } from '@/components/FavoriteButton'
 
 type SearchParams = {
   lat?: string
@@ -39,7 +40,6 @@ function parseCoords(sp: SearchParams) {
 }
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-  await new Promise((r) => setTimeout(r, 3000))
   const sp = await searchParams
   const coords = parseCoords(sp)
   if (!coords) return { title: 'Город не найден' }
@@ -54,10 +54,12 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   }
 }
 
-export default async function CityPage({ searchParams }: Props) {
+export default async function CityPage({ params, searchParams }: Props) {
+  const { slug } = await params
   const sp = await searchParams
   const coords = parseCoords(sp)
   if (!coords) notFound()
+  const id = Number(slug)
 
   const queryClient = getQueryClient()
   // fetchQuery и кладёт данные в кэш для гидратации, и возвращает их для серверного кода
@@ -67,9 +69,23 @@ export default async function CityPage({ searchParams }: Props) {
 
   return (
     <Screen gradient={gradient}>
-      <Link href="/" className="inline-flex items-center gap-1 text-sm text-white/70 hover:text-white">
-        <ChevronLeft className="size-4" /> Поиск
-      </Link>
+      <div className="flex h-10 items-center justify-between">
+        <Link href="/" className="inline-flex items-center gap-1 text-sm text-white/70 hover:text-white">
+          <ChevronLeft className="size-4" /> Поиск
+        </Link>
+        {Number.isFinite(id) && (
+          <FavoriteButton
+            city={{
+              id,
+              name: sp.name ?? 'Город',
+              admin1: sp.region,
+              country: sp.country,
+              latitude: coords.lat,
+              longitude: coords.lon,
+            }}
+          />
+        )}
+      </div>
 
       <HydrationBoundary state={dehydrate(queryClient)}>
         <CurrentWeather
