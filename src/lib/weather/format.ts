@@ -25,3 +25,11 @@ export function daylight(sunrise: string, sunset: string) {
   )
   return `${Math.floor(minutes / 60)} ч ${minutes % 60} мин`
 }
+
+export function uvLabel(uv: number) {
+  if (uv < 3) return 'Низкий'
+  if (uv < 6) return 'Умеренный'
+  if (uv < 8) return 'Высокий'
+  if (uv < 11) return 'Очень высокий'
+  return 'Экстремальный'
+}
