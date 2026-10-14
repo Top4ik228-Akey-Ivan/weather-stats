@@ -46,5 +46,8 @@ export function fetchForecast(lat: number, lon: number, days = 7, signal?: Abort
     timezone: 'auto',
     forecast_days: String(days),
   })
-  return fetchJson<Forecast>(`https://api.open-meteo.com/v1/forecast?${params}`, { signal })
+  return fetchJson<Forecast>(`https://api.open-meteo.com/v1/forecast?${params}`, {
+    signal,
+    next: { revalidate: 600 }, // серверный кэш на 10 минут; в браузере поле игнорируется
+  })
 }
