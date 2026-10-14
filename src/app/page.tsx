@@ -1,4 +1,5 @@
 import { CitySearch } from "@/components/CitySearch";
+import { FavoritesGrid } from "@/components/FavoritesGrid";
 import { Screen } from "@/components/Screen";
 
 
@@ -10,6 +11,7 @@ export default function Home() {
         <p className="mt-1 text-white/70">Найдите город, чтобы увидеть прогноз</p>
       </header>
       <CitySearch />
+      <FavoritesGrid />
     </Screen>
   )
 }

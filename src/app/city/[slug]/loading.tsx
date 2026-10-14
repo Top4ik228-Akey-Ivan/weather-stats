@@ -22,7 +22,10 @@ export default function Loading() {
       <span className="sr-only">Загрузка прогноза…</span>
 
       {/* Ссылка «Поиск» */}
-      <Bone className="h-5 w-16" />
+      <div className="flex h-10 items-center justify-between">
+        <Bone className="h-5 w-16" />
+        <Bone className="size-10 rounded-full" />
+      </div>
 
       {/* Шапка: город, регион, температура, описание, макс/мин */}
       <div className="flex flex-col items-center py-8">

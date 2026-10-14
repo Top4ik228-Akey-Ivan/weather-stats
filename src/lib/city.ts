@@ -1,13 +1,18 @@
+
+
+// Всё, что нужно, чтобы показать город и открыть его страницу.
+
 import { GeoCity } from "./geocoding"
 
+// Подходит и результату геокодинга, и записи из избранного.
+export type CityRef = Pick<GeoCity, 'id' | 'name' | 'latitude' | 'longitude' | 'admin1' | 'country'>
 
 // "Варшава, Мазовецкое воеводство, Польша"
-export function cityLabel(city: Pick<GeoCity, 'name' | 'admin1' | 'country'>) {
+export function cityLabel(city: Pick<CityRef, 'name' | 'admin1' | 'country'>) {
   return [city.name, city.admin1, city.country].filter(Boolean).join(', ')
 }
 
-// Для MVP кладём всё нужное в адрес: страница города не должна искать город заново
-export function cityHref(city: GeoCity) {
+export function cityHref(city: CityRef) {
   const params = new URLSearchParams({
     lat: String(city.latitude),
     lon: String(city.longitude),
