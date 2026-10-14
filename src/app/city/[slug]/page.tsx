@@ -13,6 +13,7 @@ import { formatTemp } from '@/lib/weather/format'
 import { getSkyGradient } from '@/lib/weather/theme'
 import { DailyForecast } from '../dailyForecast'
 import { WeatherDetails } from '../weatherDetails'
+import { HourlyForecast } from '../hourlyForecast'
 
 type SearchParams = {
   lat?: string
@@ -38,6 +39,7 @@ function parseCoords(sp: SearchParams) {
 }
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  await new Promise((r) => setTimeout(r, 3000))
   const sp = await searchParams
   const coords = parseCoords(sp)
   if (!coords) return { title: 'Город не найден' }
@@ -77,7 +79,7 @@ export default async function CityPage({ searchParams }: Props) {
           place={[sp.region, sp.country].filter(Boolean).join(', ')}
         />
         <div className="space-y-3">
-          {/* на дне 7 здесь появится почасовой прогноз */}
+          <HourlyForecast lat={coords.lat} lon={coords.lon} />
           <DailyForecast lat={coords.lat} lon={coords.lon} />
           <WeatherDetails lat={coords.lat} lon={coords.lon} />
         </div>
