@@ -15,6 +15,7 @@ import { DailyForecast } from '../dailyForecast'
 import { WeatherDetails } from '../weatherDetails'
 import { HourlyForecast } from '../hourlyForecast'
 import { FavoriteButton } from '@/components/FavoriteButton'
+import { WeatherSummary } from '../weatherSummary'
 
 type SearchParams = {
   lat?: string
@@ -95,6 +96,7 @@ export default async function CityPage({ params, searchParams }: Props) {
           place={[sp.region, sp.country].filter(Boolean).join(', ')}
         />
         <div className="space-y-3">
+          <WeatherSummary lat={coords.lat} lon={coords.lon} />
           <HourlyForecast lat={coords.lat} lon={coords.lon} />
           <DailyForecast lat={coords.lat} lon={coords.lon} />
           <WeatherDetails lat={coords.lat} lon={coords.lon} />
