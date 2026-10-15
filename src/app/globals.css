@@ -130,3 +130,35 @@
     color-scheme: dark; /* нативные элементы (скролл, выделение) тоже тёмные */
   }
 }
+
+/* Анимации */
+
+/* Живое небо */
+@keyframes sky-drift {
+  from { transform: translateX(-100%); }  /* 100% здесь это ширина самого облака */
+  to { transform: translateX(100vw); }
+}
+
+@keyframes sky-flash {
+  0%, 91%, 100% { opacity: 0; }
+  92% { opacity: 0.35; }
+  93% { opacity: 0.05; }
+  94% { opacity: 0.4; }
+  97% { opacity: 0; }
+}
+
+.sky-cloud {
+  animation: sky-drift linear infinite;
+  will-change: transform;
+}
+
+.sky-flash {
+  opacity: 0;
+  animation: sky-flash linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Облака замирают в том положении, которое задано отрицательной задержкой */
+  .sky-cloud { animation-play-state: paused; }
+  .sky-flash { animation: none; }
+}

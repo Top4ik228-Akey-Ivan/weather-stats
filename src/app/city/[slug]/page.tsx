@@ -69,7 +69,10 @@ export default async function CityPage({ params, searchParams }: Props) {
   const gradient = getSkyGradient(forecast.current.weather_code, forecast.current.is_day === 1)
 
   return (
-    <Screen gradient={gradient}>
+    <Screen
+      gradient={gradient}
+      sky={{ code: forecast.current.weather_code, isDay: forecast.current.is_day === 1 }}
+    >
       <div className="flex h-10 items-center justify-between">
         <Link href="/" className="inline-flex items-center gap-1 text-sm text-white/70 hover:text-white">
           <ChevronLeft className="size-4" /> Поиск
