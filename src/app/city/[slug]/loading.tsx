@@ -37,6 +37,17 @@ export default function Loading() {
       </div>
 
       <div className="space-y-3">
+
+        {/* Рекомендации */}
+        <GlassCard>
+          <BoneTitle width="w-20" />
+          <Bone className="h-6 w-3/4" />
+          <div className="mt-3 space-y-2">
+            <Bone className="h-4 w-1/2" />
+            <Bone className="h-4 w-2/3" />
+          </div>
+        </GlassCard>
+
         {/* Почасовой прогноз: график и лента */}
         <GlassCard>
           <BoneTitle width="w-32" />
