@@ -4,6 +4,8 @@ Readme · MD
 # Погода
  
 Погодное приложение в духе iOS: фон меняется вместе с небом за окном. Идёт дождь, и по экрану идёт дождь. Ночь, и на фоне появляются звёзды. Гроза, и вспыхивают молнии.
+
+![CI](https://github.com/Top4ik228-Akey-Ivan/weather-stats/actions/workflows/ci.yml/badge.svg)
  
 ### [Открыть демо](https://weather-stats-ruddy.vercel.app/)
  
