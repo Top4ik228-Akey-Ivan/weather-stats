@@ -7,7 +7,7 @@ export default defineConfig({
     include: ['src/**/*.test.ts'],
     coverage: {
       provider: 'v8',
-      include: ['src/lib/weather/**'],
+      include: ['src/lib/weather/**', 'src/lib/favorites.ts', 'src/lib/api/**'],
       exclude: ['src/**/*.test.ts'],
       reporter: ['text', 'html'],
     },
