@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# новый коммит отменяет ещё идущий прогон той же ветки
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      # Corepack ставит версию Yarn из поля packageManager.
+      # Включать его нужно до setup-node, иначе кэш Yarn не заработает.
+      - name: Включить Corepack
+        run: corepack enable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: yarn
+
+      - name: Установить зависимости
+        run: yarn install --immutable
+
+      - name: Линтер
+        run: yarn lint
+
+      - name: Проверка типов
+        run: yarn tsc --noEmit
+
+      - name: Тесты с покрытием
+        run: yarn test:coverage
+
+      - name: Сохранить отчёт о покрытии
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage
+          if-no-files-found: ignore
+
+      - name: Production-сборка
+        run: yarn build

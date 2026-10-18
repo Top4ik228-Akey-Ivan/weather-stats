@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description: 'Прогноз погоды: сейчас, по часам и на 7 дней. Поиск городов и избранное.',
 }
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
